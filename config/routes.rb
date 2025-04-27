@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
 
-  namespace :public do
-
-  end
 
   devise_for :admins
 
@@ -18,7 +15,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get 'users/mypage'
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update] do
+      resources :cars, only: [:new, :create, :edit, :update, :destroy]
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

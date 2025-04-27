@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>新規車両登録</h1>
+  <div class="row">
+    <div class="col-7 mx-auto">
+      <%= form_with model:@car, url: user_cars_path(current_user), local:true do |f| %>
+        <div class="form-group">
+          <%= f.label :メーカー %>
+          <%= f.text_field :manufacturer, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :車種 %>
+          <%= f.text_field :car_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :型式（任意） %>
+          <%= f.text_field :model_code, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :グレード（任意） %>
+          <%= f.text_field :trim_level, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

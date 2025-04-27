@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
 
-
   devise_for :admins
 
   devise_for :users,skip: [:passwords],  controllers: {
@@ -16,7 +15,9 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get 'users/mypage'
     resources :users, only: [:show, :edit, :update] do
-      resources :cars, only: [:new, :create, :edit, :update, :destroy]
+      resources :cars, only: [:new, :create, :edit, :update, :destroy] do
+        resources :posts
+      end
     end
   end
 

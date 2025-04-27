@@ -3,22 +3,20 @@
   <div class="row">
     <div class="col-4">
       <div class="row">
-        <%= link_to '新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success btn-block" %>
+        <%= link_to '新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success btn-block mx-5" %>
       </div>
       <div class="row mt-2">
         <% if @cars.any? %>
-          <div class="col-4">
+          <div class="col-8 mx-auto">
             <% @cars.each do |car| %>
-              <div class="card p-1 card-hover">
+              <div class="card m-2 p-1 card-hover">
                 <p class="text-center">
                   <%= car.manufacturer %><br>
                   <strong><%= car.car_name %></strong><br>
                   <%= car.model_code %><br>
                   <%= car.trim_level %>
                 </p>
-                <!-- <button type="button" class="btn btn-primary"> -->
-                  <%#= link_to post_path(item.id) do %>
-                <!-- </button> -->
+                <%= link_to '新規投稿', new_user_car_post_path(current_user, car.id), class: "btn btn-primary mx-2" %>
               </div>
             <% end %>
           </div>

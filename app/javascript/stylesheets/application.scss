@@ -1,11 +1,18 @@
 @use "~bootstrap/scss/bootstrap"; 
 
+main {
+  background-image: url("../images/background_image2.jpg");
+  background-size: cover;         /* 画像を全体に広げる */
+  background-position: center;    /* 画像を中央に配置する */
+  background-repeat: no-repeat;   /* 繰り返しなし */
+}
+
 /* headerの背景色 */
 .custom-green {
-  background-color: #88e89f;
-  color: #002e12; 
+  background-color: #ffd7a2;
+  color: #393024; 
   a {
-    color: #002e12; /* リンクの文字色 */
+    color: #393024; /* リンクの文字色 */
     text-decoration: none; /* 下線を消す */
   }
 }

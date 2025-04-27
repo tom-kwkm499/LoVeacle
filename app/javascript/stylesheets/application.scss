@@ -1,1 +1,11 @@
 @use "~bootstrap/scss/bootstrap"; 
+
+/* headerの背景色 */
+.custom-green {
+  background-color: #88e89f;
+  color: #002e12; 
+  a {
+    color: #002e12; /* リンクの文字色 */
+    text-decoration: none; /* 下線を消す */
+  }
+}

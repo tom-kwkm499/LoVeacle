@@ -7,25 +7,52 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li>
-            <%= link_to root_path, class:"nav-link " do%>
-            <i class="fa-solid fa-house"></i> Home
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_registration_path, class:"nav-link " do %>
-            <i class="fa-solid fa-user-plus"></i>
-            Sign up
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_session_path, class:"nav-link " do %>
-            <i class="fa-solid fa-right-to-bracket"></i>
-            Log in
-            <% end %>
-          </li>
-          </ul>
-        </div>
+          <% if admin_signed_in? %>
+          <% elsif user_signed_in? %>
+            <!-- ユーザーログイン時 -->
+            <li>
+              <!-- マイページへ -->
+              <%= link_to users_mypage_path, class: 'btn btn-outline-secondary mx-1 my-1' do %>
+                <i class="fa-solid fa-user"></i> マイページ
+              <% end %>
+            </li>
+            <li>
+              <!-- 投稿一覧へ -->
+            </li>
+            <li>
+              <!-- 新規投稿へ -->
+            </li>
+            <li>
+              <!-- ログアウトへ -->
+              <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary mx-1 my-1' do %>
+                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+              <% end %>
+            </li>
+          <% else %>
+            <!-- 未ログイン時 -->
+            <li>
+              <!-- トップページへ -->
+              <%= link_to root_path, class:"btn btn-outline-secondary mx-1 my-1" do%>
+              <i class="fa-solid fa-house"></i> Home
+              <% end %>
+            </li>
+            <li>
+              <!-- 新規登録へ -->
+              <%= link_to new_user_registration_path, class:"btn btn-outline-secondary mx-1 my-1" do %>
+              <i class="fa-solid fa-user-plus"></i>
+              Sign up
+              <% end %>
+            </li>
+            <li>
+              <!-- ログインへ -->
+              <%= link_to new_user_session_path, class:"btn btn-outline-secondary mx-1 my-1" do %>
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Log in
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 </header>

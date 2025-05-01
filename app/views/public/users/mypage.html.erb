@@ -1,29 +1,79 @@
-<div class="container">
-  <h1>マイページ</h1>
+<div class="container py-4">
+  <h1 class="mb-4 fw-bold">マイページ</h1>
   <div class="row">
-    <div class="col-4">
-      <div class="row">
-        <%= link_to '新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success btn-block mx-5" %>
-      </div>
-      <div class="row mt-2">
-        <% if @cars.any? %>
-          <div class="col-8 mx-auto">
-            <% @cars.each do |car| %>
-              <div class="card m-2 p-1 card-hover">
-                <p class="text-center">
-                  <%= car.manufacturer %><br>
-                  <strong><%= car.car_name %></strong><br>
-                  <%= car.model_code %><br>
-                  <%= car.trim_level %>
-                </p>
-                <%= link_to '新規投稿', new_user_car_post_path(current_user, car.id), class: "btn btn-primary mx-2" %>
-              </div>
+
+    <!-- 車両一覧 & 新規車両登録 -->
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">登録車両</h5>
+        </div>
+        <div class="card-body">
+          <%= link_to '＋ 新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success w-100 mb-3" %>
+
+          <% owned_cars = @cars.select(&:is_owned) %>
+          <% past_cars = @cars.reject(&:is_owned) %>
+          
+          <% if @cars.any? %>
+          
+            <% if owned_cars.any? %>
+              <h5 class="text-primary border-bottom pb-1 mb-3">所有中の車両</h5>
+              <% owned_cars.each do |car| %>
+                <div class="card mb-3">
+                  <div class="row card-body text-center p-2 d-flex justify-content-center">
+                    <div class="col-5">
+                      <% if car.car_image.attached? %>
+                        <%= image_tag car.car_image, class: "img-fluid mb-1 ", style: "max-height: 80px; width: auto;" %> <!-- 車両画像を表示 -->
+                      <% else %>
+                        <%= image_tag "car_brank.jpg", class: "img-fluid mb-1", style: "max-height: 80px; width: auto;" %> <!-- デフォルト画像 -->
+                      <% end %>
+                    </div>
+                    <div class="col-6">
+                      <p class="mb-1 text-muted small"><%= car.manufacturer %></p>
+                      <h5 class="mb-1"><%= car.car_name %></h5>
+                      <p class="mb-1 text-muted"><%= car.model_code %> / <%= car.trim_level %></p>
+                      
+                    </div>
+                  </div>
+                  <div class="card-body d-flex justify-content-end pt-0 pb-3">
+                    <%= link_to '編集', edit_user_car_path(current_user, car.id), class: "btn btn-outline-warning btn-sm mx-2" %>
+                    <%= link_to '新規投稿', new_user_car_post_path(current_user, car.id), class: "btn btn-outline-primary btn-sm" %>
+                  </div>
+                </div>
+              <% end %>
             <% end %>
-          </div>
-        <% else %>
-          <p>車両を登録して投稿を始めてみましょう</p>
-        <% end %>
+          
+            <% if past_cars.any? %>
+              <h5 class="text-warning border-bottom pb-1 mb-3 mt-4">過去所有していた車両</h5>
+              <% past_cars.each do |car| %>
+                <div class="card mb-3">
+                  <div class="card-body text-center p-2 bg-light">
+                    <p class="mb-1 text-muted small"><%= car.manufacturer %></p>
+                    <h5 class="mb-1"><%= car.car_name %></h5>
+                    <p class="mb-1 text-muted"><%= car.model_code %> / <%= car.trim_level %></p>
+                    <%= link_to '新規投稿', new_user_car_post_path(current_user, car.id), class: "btn btn-outline-secondary btn-sm mt-2" %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="text-muted">車両を登録して投稿を始めてみましょう。</p>
+          <% end %>
+        </div>
       </div>
     </div>
+
+    <!-- 投稿一覧 -->
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">あなたの投稿</h5>
+        </div>
+        <div class="card-body">
+          <%= render 'public/posts/index', posts: @posts %>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </div>

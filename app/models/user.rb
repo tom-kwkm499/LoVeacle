@@ -6,5 +6,8 @@ class User < ApplicationRecord
 
   has_many :cars, dependent: :destroy
 
+  # プロフィール画像を保持
+  has_one_attached :profile_image
+
   validates :name, presence: true
 end

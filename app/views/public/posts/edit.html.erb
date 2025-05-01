@@ -1,2 +1,38 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class="container py-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning text-white">
+      <h4 class="mb-0">投稿を編集する</h4>
+    </div>
+
+    <div class="card-body">
+      <%= form_with(model: [current_user, @post.car, @post], local: true) do |f| %>
+
+        <% if @post.errors.any? %>
+          <div class="alert alert-danger">
+            <ul class="mb-0">
+              <% @post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+          <%= f.text_field :title, class: "form-control", maxlength: 50, placeholder: "タイトルを入力してください" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :body, "内容", class: "form-label fw-bold" %>
+          <%= f.text_area :body, class: "form-control", maxlength: 500, rows: 6, placeholder: "投稿内容を入力してください" %>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <%= link_to 'キャンセル', user_car_post_path(current_user, @post.car, @post), class: "btn btn-secondary" %>
+          <%= f.submit "更新する", class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

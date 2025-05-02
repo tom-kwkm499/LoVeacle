@@ -10,4 +10,10 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   validates :name, presence: true
+
+  # プロフィール画像表示
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : 'user_brank.jpg'
+  end
+
 end

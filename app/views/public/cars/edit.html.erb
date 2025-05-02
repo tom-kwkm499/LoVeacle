@@ -1,2 +1,56 @@
-<h1>Public::Cars#edit</h1>
-<p>Find me in app/views/public/cars/edit.html.erb</p>
+<div class="container">
+  <h1>車両情報の編集</h1>
+  <div class="row">
+    <div class="col-7 mx-auto">
+      <%= form_with model: [current_user, @car], local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :メーカー %>
+          <%= f.text_field :manufacturer, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :車種 %>
+          <%= f.text_field :car_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :型式（任意） %>
+          <%= f.text_field :model_code, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :グレード（任意） %>
+          <%= f.text_field :trim_level, class: 'form-control' %>
+        </div>
+        <%= f.label :ownership_start_date, "所有開始日" %>
+        <%= f.date_select :ownership_start_date, start_year: 1980, end_year: Date.today.year + 5, include_blank: true, use_month_numbers: true %><br>
+        <%= f.label :ownership_end_date, "所有終了日" %>
+        <%= f.date_select :ownership_end_date, start_year: 1980, end_year: Date.today.year + 5, include_blank: true, use_month_numbers: true %>
+        <div class="form-group mb-3">
+          <%= f.label :is_owned, "所有ステータス", class: "form-label d-block" %>
+          <div class="btn-group" role="group" data-toggle="buttons">
+            <label class="btn btn-outline-primary <%= 'active' if @car.is_owned %>">
+              <%= f.radio_button :is_owned, true, checked: @car.is_owned, autocomplete: "off" %> 所有中
+            </label>
+            <label class="btn btn-outline-secondary <%= 'active' unless @car.is_owned %>">
+              <%= f.radio_button :is_owned, false, checked: !@car.is_owned, autocomplete: "off" %> 所有終了
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :car_image, "車両の画像", class: "form-label" %>
+          <%= f.file_field :car_image, class: "form-control" %>
+        </div>
+        <div class="form-group mt-4 d-flex justify-content-between">
+          <!-- 更新ボタン -->
+          <div>
+            <%= f.submit "更新する", class: 'btn btn-primary' %>
+          </div>
+        
+          <!-- キャンセルと削除 -->
+          <div>
+            <%= link_to "キャンセル", users_mypage_path, class: 'btn btn-secondary me-2' %>
+            <%= link_to "削除", user_car_path(current_user, @car), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

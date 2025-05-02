@@ -36,5 +36,9 @@ end
 private
 
 def post_params
-  params.require(:post).permit(:title, :body)
+  params.require(:post).permit(
+    :title,
+    :body,
+    :post_image
+  )
 end

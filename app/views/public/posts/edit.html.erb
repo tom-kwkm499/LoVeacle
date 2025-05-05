@@ -6,30 +6,10 @@
 
     <div class="card-body">
       <%= form_with(model: [current_user, @post.car, @post], local: true) do |f| %>
-
-        <% if @post.errors.any? %>
-          <div class="alert alert-danger">
-            <ul class="mb-0">
-              <% @post.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <div class="mb-3">
-          <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
-          <%= f.text_field :title, class: "form-control", maxlength: 50, placeholder: "タイトルを入力してください" %>
-        </div>
-
-        <div class="mb-3">
-          <%= f.label :body, "内容", class: "form-label fw-bold" %>
-          <%= f.text_area :body, class: "form-control", maxlength: 500, rows: 6, placeholder: "投稿内容を入力してください" %>
-        </div>
-
-        <div class="d-flex justify-content-between">
+        <%= render 'form', post: @post, f: f %>
+        <div class="d-flex">
+          <%= f.submit "更新する", class: "btn btn-primary mr-3" %>
           <%= link_to 'キャンセル', user_car_post_path(current_user, @post.car, @post), class: "btn btn-secondary" %>
-          <%= f.submit "更新する", class: "btn btn-primary" %>
         </div>
 
       <% end %>

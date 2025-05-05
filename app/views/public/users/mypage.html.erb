@@ -2,7 +2,6 @@
   <h1 class="mb-4 fw-bold">マイページ</h1>
   <div class="row">
 
-    <!-- 車両一覧 & 新規車両登録 -->
     <div class="col-md-4">
       <div class="card shadow-sm mb-4">
         <div class="card-header bg-success text-white">
@@ -14,30 +13,35 @@
           </div>
           <div class="col-6 text-center">
             <h5 class="mb-2"><%= @user.name %></h5>
-            <%= link_to '編集', edit_user_path(current_user), class: "btn btn-outline-warning btn-sm mx-2" %>
+            <% if @user.id == current_user.id %>
+              <%= link_to '編集', edit_user_path(@user), class: "btn btn-outline-warning btn-sm mx-2" %>
+            <% end %>
           </div>
         </div>
       </div>
+          <!-- 車両一覧 & 新規車両登録 -->
       <div class="card shadow-sm mb-4">
         <div class="card-header bg-success text-white">
           <h5 class="mb-0">登録車両</h5>
         </div>
         <div class="card-body">
-          <%= link_to '＋ 新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success w-100 mb-3" %>
+          <% if current_user.id == @user.id %>
+            <%= link_to '＋ 新規車両登録', new_user_car_path(user_id: @user.id), class: "btn btn-success w-100 mb-3" %>
+          <% end %>
           
           <% if @cars.any? %>
           
             <% if @owned_cars.any? %>
               <h5 class="text-primary border-bottom pb-1 mb-3">所有中の車両</h5>
               <% @owned_cars.each do |car| %>
-                <%= render 'public/users/car_list', car: car %>
+                <%= render 'public/users/car_list', car: car, user: car.user %>
               <% end %>
             <% end %>
           
             <% if @past_cars.any? %>
               <h5 class="text-warning border-bottom pb-1 mb-3 mt-4">過去所有していた車両</h5>
               <% @past_cars.each do |car| %>
-              <%= render 'public/users/car_list', car: car %>
+              <%= render 'public/users/car_list', car: car, user: car.user %>
               <% end %>
             <% end %>
           <% else %>

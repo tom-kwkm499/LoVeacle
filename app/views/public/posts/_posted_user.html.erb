@@ -1,0 +1,24 @@
+<div class="card-header d-flex align-items-center">
+  <div class="d-flex align-items-center position-relative" style="height: 80px; width: 100px;">
+    <!-- プロフィール画像 -->
+    <%= link_to user_path(post.car.user) do %>
+      <%= image_tag post.car.user.get_profile_image,
+        class: "rounded-circle position-absolute",
+        style: "height: 55px; width: 55px; z-index: 1; left: 0; top: 0; border: 2px solid brown;"
+      %>
+    <% end %>
+  
+    <!-- 車両画像 -->
+    <%= link_to user_path(post.car.user) do %>
+      <%= image_tag post.car.get_car_image,
+        class: "rounded-circle position-absolute",
+        style: "height: 55px; width: 55px; z-index: 2; left: 35px; top: 20px; border: 2px solid brown;"
+      %>
+    <% end %>
+  </div>
+  <!-- ユーザー名 / 車名 -->
+  <div>
+    <strong><%= post.car.user.name %></strong><br>
+    <small class="text-muted"><%= post.car.manufacturer %> / <%= post.car.car_name %></small>
+  </div>
+</div>

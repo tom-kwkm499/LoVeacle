@@ -14,9 +14,12 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get 'users/mypage'
+
+    resources :posts, only: [:index]
+
     resources :users, only: [:show, :edit, :update] do
       resources :cars, only: [:new, :create, :edit, :update, :destroy] do
-        resources :posts
+        resources :posts, only: [:new, :show, :create, :edit, :update, :destroy]
       end
     end
   end

@@ -1,22 +1,19 @@
-<div class="container mt-5">
+<div class="container my-5">
   <div class="card shadow p-4">
     <div class="card-header bg-primary text-white">
       <h1 class="mb-0">投稿詳細</h1>
     </div>
 
     <div class="card-body">
-      <h5 class="card-title">
-        投稿者: 
-        <%= link_to @post.car.user.name, user_path(@post.car.user), class: "badge bg-secondary text-white text-decoration-none" %>
-      </h5>
+      <%= render 'posted_user', post: @post %>
 
-      <h5 class="card-title mt-3">
-        車種: <span class="badge bg-info text-dark"><%= @post.car.car_name %></span>
-      </h5>
+      <% if @post.post_image.attached? %>
+        <div class="text-center mt-3">
+          <%= image_tag @post.post_image, class: "img-fluid rounded", style: "max-height: 250px;" %>
+        </div>
+      <% end %>
 
-      <hr>
-
-      <h3 class="text-decoration-underline mb-4"><%= @post.title %></h3>
+      <h3 class="text-decoration-underline mb-4 mt-2"><%= @post.title %></h3>
 
       <p class="card-text fs-5"><%= simple_format(@post.body) %></p>
     </div>

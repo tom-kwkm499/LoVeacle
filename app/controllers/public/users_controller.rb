@@ -1,14 +1,25 @@
 class Public::UsersController < ApplicationController
   def mypage
-    @user = current_user
+    @user = current_user 
     @cars = @user.cars
-    @posts = Post.where(car_id: @cars.pluck(:id))
     @owned_cars = @cars.select(&:is_owned)
     @past_cars = @cars.reject(&:is_owned)
+
+    @posts = Post.where(car_id: @cars.pluck(:id)).order(created_at: :desc) 
+    #@cars に含まれるすべての車両（Car）の id だけを配列で取り出す処理.新しいものから並べる
   end
 
   def show
+    if current_user.id == params[:id].to_i
+      redirect_to users_mypage_path
+    else
+      @user = User.find(params[:id])
+      @cars = @user.cars
+      @owned_cars = @cars.select(&:is_owned)
+      @past_cars = @cars.reject(&:is_owned)
 
+      @posts = Post.where(car_id: @cars.pluck(:id)).order(created_at: :desc) 
+    end
   end
 
   def edit

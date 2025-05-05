@@ -4,6 +4,12 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @user = current_user 
+    @cars = @user.cars
+    @owned_cars = @cars.select(&:is_owned)
+    @past_cars = @cars.reject(&:is_owned)
+
+    @posts = Post.order(created_at: :desc)
   end
 
   def show
@@ -25,13 +31,20 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to user_car_post_path(@post.car.user, @post.car, @post), notice: "投稿情報を更新しました。"
+    else
+      flash.now[:alert] = "投稿情報の更新に失敗しました。"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
-
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to users_mypage_path, notice: "投稿を削除しました。"
   end
-end
 
 private
 
@@ -41,4 +54,6 @@ def post_params
     :body,
     :post_image
   )
+end
+
 end

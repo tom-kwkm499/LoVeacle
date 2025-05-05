@@ -9,7 +9,7 @@
         <ul class="navbar-nav ml-auto">
           <% if admin_signed_in? %>
           <% elsif user_signed_in? %>
-            <!-- ユーザーログイン時 -->
+          <!-- ユーザーログイン時 -->
             <li>
               <!-- マイページへ -->
               <%= link_to users_mypage_path, class: 'btn btn-outline-secondary mx-1 my-1' do %>
@@ -18,9 +18,9 @@
             </li>
             <li>
               <!-- 投稿一覧へ -->
-            </li>
-            <li>
-              <!-- 新規投稿へ -->
+              <%= link_to posts_path, class: 'btn btn-outline-secondary mx-1 my-1' do %>
+                <i class="fa-solid fa-car-side"></i> 投稿一覧
+              <% end %>
             </li>
             <li>
               <!-- ログアウトへ -->
@@ -29,7 +29,7 @@
               <% end %>
             </li>
           <% else %>
-            <!-- 未ログイン時 -->
+          <!-- 未ログイン時 -->
             <li>
               <!-- トップページへ -->
               <%= link_to root_path, class:"btn btn-outline-secondary mx-1 my-1" do%>

@@ -1,5 +1,14 @@
 <div class="container">
   <h1>新規車両登録</h1>
+  <% if @car.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @car.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-7 mx-auto">
       <%= form_with model:@car, url: user_cars_path(current_user), local:true do |f| %>
